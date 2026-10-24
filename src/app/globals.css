@@ -596,6 +596,36 @@ html[data-theme='dark'] .theme-toggle__dark {
   transform: translate(3px, 3px);
 }
 
+/* ---------- Status tag ---------- */
+
+.project-card__top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.6rem;
+}
+
+.project-card__top .eyebrow {
+  margin-bottom: 0;
+}
+
+.status-tag {
+  font-family: var(--font-pixel);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #3a2d5c;
+  background: var(--mint);
+  padding: 0.05rem 0.55rem;
+  box-shadow:
+    0 -2px 0 0 var(--line),
+    0 2px 0 0 var(--line),
+    -2px 0 0 0 var(--line),
+    2px 0 0 0 var(--line);
+}
+
 /* ---------- Project detail ---------- */
 
 .back-link {
@@ -663,14 +693,19 @@ html[data-theme='dark'] .theme-toggle__dark {
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: 3px;
+  justify-items: center;
 }
 
 .gallery img {
   display: block;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
+  max-height: 34rem;
+  background: var(--white);
   box-shadow:
     0 -3px 0 0 var(--line),
     0 3px 0 0 var(--line),

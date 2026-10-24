@@ -7,7 +7,10 @@ export default function ProjectCard({ project, index }) {
 
   return (
     <article className="px project-card">
-      <p className="eyebrow">QUEST {quest}</p>
+      <div className="project-card__top">
+        <p className="eyebrow">QUEST {quest}</p>
+        {project.status && <span className="status-tag">{project.status}</span>}
+      </div>
 
       <h3 className="project-card__title">
         <Link href={`/projects/${project.slug}`} className="card-link">

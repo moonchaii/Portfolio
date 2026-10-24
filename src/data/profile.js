@@ -8,7 +8,7 @@ export const profile = {
   // TODO: replace these with your real details
   email: 'teuropa123@gmail.com',
   github: 'https://github.com/moonchaii',
-  linkedin: 'www.linkedin.com/in/chai-europa',
+  linkedin: 'https://linkedin.com/in/chai-europa',
 
   // Put your PDF at /public/resume.pdf and these links will work.
   resumeUrl: '/resume.pdf',

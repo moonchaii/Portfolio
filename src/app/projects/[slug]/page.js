@@ -18,7 +18,11 @@ export default async function ProjectPage({ params }) {
   if (!project) notFound();
 
   const hasDetails =
-    project.overview || project.highlights?.length || project.learned?.length || project.images?.length;
+    project.overview ||
+    project.highlights?.length ||
+    project.learned?.length ||
+    project.todo?.length ||
+    project.images?.length;
 
   return (
     <main>
@@ -27,16 +31,25 @@ export default async function ProjectPage({ params }) {
       </Link>
 
       <header className="page-head">
-        <p className="eyebrow">Quest file</p>
+        <div className="project-card__top">
+          <p className="eyebrow">Quest file</p>
+          {project.status && <span className="status-tag">{project.status}</span>}
+        </div>
         <h1 className="page-title">{project.title}</h1>
         <p className="lede">{project.description}</p>
 
-        {(project.year || project.role) && (
+        {(project.year || project.team || project.role) && (
           <dl className="facts">
             {project.year && (
               <div>
                 <dt>Year</dt>
                 <dd>{project.year}</dd>
+              </div>
+            )}
+            {project.team && (
+              <div>
+                <dt>Team</dt>
+                <dd>{project.team}</dd>
               </div>
             )}
             {project.role && (
@@ -100,21 +113,35 @@ export default async function ProjectPage({ params }) {
           </section>
         )}
 
+        {project.todo?.length > 0 && (
+          <section className="px panel">
+            <h2>{project.todoTitle || 'Known limitations & refactor goals'}</h2>
+            <ul>
+              {project.todo.map((t) => (
+                <li key={t}>{t}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         {project.images?.length > 0 && (
           <section className="px panel">
             <h2>Screenshots</h2>
             <div className="gallery">
-              {project.images.map((src) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img key={src} src={src} alt={`${project.title} screenshot`} loading="lazy" />
-              ))}
+              {project.images.map((img) => {
+                const { src, alt } = typeof img === 'string' ? { src: img, alt: `${project.title} screenshot` } : img;
+                return (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img key={src} src={src} alt={alt} loading="lazy" />
+                );
+              })}
             </div>
           </section>
         )}
 
         {!hasDetails && (
           <p className="px empty-note">
-            ✦ Full write-up coming soon. In the meantime, the GitHub repo has the code.
+            ✦ Full write-up coming soon.{project.githubUrl ? ' In the meantime, the GitHub repo has the code.' : ''}
           </p>
         )}
       </div>
