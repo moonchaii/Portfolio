@@ -1,102 +1,84 @@
-// src/app/page.js
 import Link from 'next/link';
-import { skillsData } from '@/data/skills';
+import PixelSprite from '@/components/PixelSprite';
+import ProjectCard from '@/components/ProjectCard';
 import { projectsData } from '@/data/projects';
+import { featuredSkillNames } from '@/data/skills';
+import { profile } from '@/data/profile';
 
 export default function Home() {
-  const featuredSkills = [...skillsData.languages, ...skillsData.frameworks].slice(0, 8);
   const featuredProjects = projectsData.slice(0, 2);
 
   return (
-    <main className="container">
-      {/* Hero Section */}
-      <section style={{ padding: '2rem 0 4rem 0' }}>
+    <main>
+      {/* Hero */}
+      <section className="hero">
+        <div>
+          <p className="eyebrow">▶ Player one · ready</p>
+          <h1 className="hero__title">
+            Hi, I&apos;m a <mark>{profile.role}</mark>
+          </h1>
+          <p className="lede">{profile.tagline}</p>
 
-        <h1 style={{ fontSize: '3.5rem', fontWeight: '800', lineHeight: '1.15', marginBottom: '1.25rem', letterSpacing: '-0.02em' }}>
-          Hi, I&apos;m a{' '}
-          <span 
-            style={{
-              background: 'linear-gradient(135deg, #e9d5ff, #c084fc, #9333ea)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            Software Developer
-          </span>
-        </h1>
-
-        <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '680px', marginBottom: '2.5rem', lineHeight: '1.7' }}>
-          I build full-stack web platforms, mobile apps, and low-level software systems with clean design and user-focused engineering.
-        </p>
-
-        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-          <Link href="/projects" className="btn-primary">
-            Explore Projects →
-          </Link>
-          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="btn-secondary">
-            View Resume ↗
-          </a>
+          <div className="btn-row">
+            <Link href="/projects" className="px btn">
+              Explore projects ▶
+            </Link>
+            <a href={profile.resumeUrl} target="_blank" rel="noopener noreferrer" className="px btn btn--ghost">
+              View resume ↗
+            </a>
+          </div>
         </div>
-      </section>
 
-      {/* Featured Skills Preview */}
-      <section style={{ marginBottom: '4rem' }}>
-        <h2 className="section-title" style={{ marginBottom: '1.25rem' }}>Tech Stack Highlight</h2>
-        <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap' }}>
-          {featuredSkills.map((skill) => (
-            <span key={skill} className="badge">
-              {skill}
+        <div className="hero__art" aria-hidden="true">
+          <div className="px hero__scene">
+            <PixelSprite name="gamepad" size={14} className="sprite--main" />
+            <span className="float float--a">
+              <PixelSprite name="star" size={4} />
             </span>
-          ))}
-        </div>
-      </section>
-
-      {/* Featured Projects Preview */}
-      <section style={{ marginBottom: '4rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-          <h2 className="section-title">Featured Projects</h2>
-          <Link href="/projects" style={{ color: 'var(--purple-light)', textDecoration: 'none', fontWeight: '700', fontSize: '0.95rem' }}>
-            View All Projects →
-          </Link>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.75rem' }}>
-          {featuredProjects.map((project) => (
-            <div key={project.id} className="card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              <div>
-                <h3 style={{ fontSize: '1.35rem', fontWeight: '700', marginBottom: '0.6rem', color: 'var(--text-main)' }}>
-                  {project.title}
-                </h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '1.5rem', lineHeight: '1.6' }}>
-                  {project.description}
-                </p>
+            <span className="float float--b">
+              <PixelSprite name="heart" size={4} />
+            </span>
+            <div className="status">
+              <div className="status__row">
+                <span>DEV LVL</span>
+                <span>loading...</span>
               </div>
-
-              <div>
-                {/* Tech Badges */}
-                <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
-                  {project.techStack.map((tech) => (
-                    <span key={tech} className="badge" style={{ fontSize: '0.75rem', padding: '0.2rem 0.55rem' }}>
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Project Links */}
-                <div style={{ display: 'flex', gap: '1rem', borderTop: '1px solid var(--card-border)', paddingTop: '1rem' }}>
-                  {project.liveUrl && (
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--purple-light)', fontSize: '0.85rem', fontWeight: '600', textDecoration: 'none' }}>
-                      Live Demo ↗
-                    </a>
-                  )}
-                  {project.githubUrl && (
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: '600', textDecoration: 'none' }}>
-                      GitHub ↗
-                    </a>
-                  )}
-                </div>
+              <div className="xp">
+                <div className="xp__fill" />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tech stack */}
+      <section className="section">
+        <div className="section-head">
+          <h2 className="section-title">Tech stack highlight</h2>
+          <Link href="/skills" className="text-link">
+            See all stats →
+          </Link>
+        </div>
+        <ul className="chips chips--lg">
+          {featuredSkillNames.map((skill) => (
+            <li key={skill} className="chip px-sm">
+              {skill}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Featured projects */}
+      <section className="section">
+        <div className="section-head">
+          <h2 className="section-title">Featured projects</h2>
+          <Link href="/projects" className="text-link">
+            View all projects →
+          </Link>
+        </div>
+        <div className="project-grid">
+          {featuredProjects.map((project, i) => (
+            <ProjectCard key={project.slug} project={project} index={i} />
           ))}
         </div>
       </section>

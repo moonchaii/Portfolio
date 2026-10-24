@@ -1,18 +1,43 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import PixelSprite from './PixelSprite';
+import ThemeToggle from './ThemeToggle';
+import { profile } from '@/data/profile';
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/skills', label: 'Skills' },
+  { href: '/contact', label: 'Contact' },
+];
 
 export default function Navbar() {
+  const pathname = usePathname();
+
   return (
-    <header style={{ borderBottom: '1px solid var(--card-border)', background: 'var(--card-bg)' }}>
-      <nav className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 1.5rem' }}>
-        <Link href="/" style={{ color: 'var(--text-main)', textDecoration: 'none', fontWeight: 'bold', fontSize: '1.2rem' }}>
-            T. Europa
+    <header className="site-header">
+      <nav className="site-nav" aria-label="Main">
+        <Link href="/" className="brand">
+          <PixelSprite name="heart" size={3} />
+          <span>{profile.name}</span>
         </Link>
-        <div style={{ display: 'flex', gap: '1.5rem' }}>
-          <Link href="/" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Home</Link>
-          <Link href="/projects" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Projects</Link>
-          <Link href="/skills" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Skills</Link>
-          <Link href="/contact" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Contact</Link>
-        </div>
+
+        <ul className="nav-links">
+          {links.map(({ href, label }) => {
+            const active = href === '/' ? pathname === '/' : pathname.startsWith(href);
+            return (
+              <li key={href}>
+                <Link href={href} className="nav-link" aria-current={active ? 'page' : undefined}>
+                  {label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+
+        <ThemeToggle />
       </nav>
     </header>
   );
