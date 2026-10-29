@@ -127,12 +127,12 @@ export default async function ProjectPage({ params }) {
         {project.images?.length > 0 && (
           <section className="px panel">
             <h2>Screenshots</h2>
-            <div className="gallery">
+            <div className="gallery" style={{}}>
               {project.images.map((img) => {
                 const { src, alt } = typeof img === 'string' ? { src: img, alt: `${project.title} screenshot` } : img;
                 return (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img key={src} src={src} alt={alt} loading="lazy" />
+                  <img key={src} src={src} alt={alt} loading="lazy"/>
                 );
               })}
             </div>
