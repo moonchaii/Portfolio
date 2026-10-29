@@ -37,7 +37,24 @@ export const projectsData = [
       'Export a health summary to PDF to share with doctors',
       'Opt-in secure cloud sync',
     ],
-    images: [],
+    images: [
+      {
+        src: '/projects/sprout-health/home.jpeg',
+        alt: 'Main dashboard upon opening the app',
+      },
+      {
+        src: '/projects/sprout-health/symptoms.jpeg',
+        alt: 'Where user logs symptoms as well of severity',
+      },
+      {
+        src: '/projects/sprout-health/medications.jpeg',
+        alt: 'Where user adds and toggles medications',
+      },
+      {
+        src: '/projects/sprout-health/calendar.jpeg',
+        alt: 'Calendar to track symptom severity, medication usage and health-related appointments',
+      },
+    ],
   },
 
   {
