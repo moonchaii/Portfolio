@@ -1,0 +1,90 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # also lets you run it by hand from the Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # "/<repo-name>", e.g. /Portfolio.
+      # If you ever rename the repo to <username>.github.io, change this to an empty string.
+      BASE_PATH: /${{ github.event.repository.name }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build static site
+        run: npm run build
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ env.BASE_PATH }}
+
+      # Next adds the base path to links and scripts by itself, but NOT to plain
+      # <img src="/projects/..."> and <a href="/resume.pdf">. Instead of editing the
+      # source, fix those paths here, in the build output only.
+      - name: Prefix image and resume paths with the base path
+        run: |
+          python3 - <<'PY'
+          import os, re, pathlib
+
+          base = os.environ["BASE_PATH"]
+          if not base:
+              raise SystemExit("No base path set, nothing to do.")
+
+          # A root-relative asset path that directly follows a quote character.
+          # (Also matches the JSON-escaped form inside Next's data files.)
+          pattern = re.compile(
+              r"""(?<=["'])(/(?:projects/[^/"'\\\s]+/[^"'\\\s]+\.(?:png|jpe?g|gif|webp|avif|svg)|resume\.pdf))"""
+          )
+
+          changed = 0
+          for path in pathlib.Path("out").rglob("*"):
+              if path.suffix not in {".html", ".txt", ".js"}:
+                  continue
+              text = path.read_text(encoding="utf-8", errors="ignore")
+              new, n = pattern.subn(lambda m: base + m.group(1), text)
+              if n:
+                  path.write_text(new, encoding="utf-8")
+                  changed += n
+
+          print(f"Prefixed {changed} asset path(s) with {base}")
+
+          # Safety net: fail the build rather than ship broken images.
+          leftovers = [
+              str(p) for p in pathlib.Path("out").rglob("*.html")
+              if pattern.search(p.read_text(encoding="utf-8", errors="ignore"))
+          ]
+          if leftovers:
+              raise SystemExit(f"Un-prefixed asset paths remain in: {leftovers}")
+          PY
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
