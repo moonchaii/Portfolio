@@ -1,7 +1,7 @@
-// Each project gets its own page at /projects/<slug>.
+// each project gets its own page at /projects/<slug>.
 //
-// Required: slug, title, description, techStack.
-// Everything else is optional and only shows on the page when filled in:
+// required: slug, title, description, techStack.
+// everything else is optional and only shows on the page when filled in:
 //   status      small badge, e.g. 'In progress' | 'Being refactored' | 'Complete'
 //   year, role, team   shown as quick facts under the title
 //   overview    paragraph(s) of text
@@ -18,18 +18,18 @@ export const projectsData = [
     title: 'Sprout Health',
     status: 'In progress',
     description:
-      'A calm personal health companion for people living with chronic illness: log symptoms, track appointments, and stay on top of reminders in one organised space.',
+      'A personal health companion for people living with chronic illness: log symptoms, track appointments, and stay on top of reminders in one organised space.',
     techStack: ['React Native', 'TypeScript', 'React Navigation', 'Notifee', 'WatermelonDB'],
     liveUrl: '',
-    githubUrl: 'https://github.com/moonchaii/SproutHealth',
+    githubUrl: 'https://github.com/moonchaii/SproutHealth (private)',
 
     overview:
-      'Living with a chronic condition means carrying a lot of information in your head. Sprout Health gives that information a home, so you can focus on healing instead of remembering. It is designed for people with chronic illness, recurring flare-ups, or complex health journeys, with a soft, nature-inspired look that feels calm rather than clinical.',
+      'Living with a chronic condition means carrying a lot of information in your head. Sprout Health gives that information a home, so you can focus on healing instead of remembering. It is designed for people with chronic illness, recurring flare-ups, or complex health journeys, with a soft, nature-inspired look.',
     highlights: [
       'Symptom logging with a severity scale, plus triggers and notes for each flare-up',
       'Doctor appointment calendar with a notes section for every visit',
       'Local push notification reminders for medications and appointments, with date and time alerts',
-      'Cross-platform (iOS and Android) from a single React Native codebase',
+      'Cross-platform (iOS and Android)',
     ],
     todoTitle: 'Roadmap',
     todo: [
