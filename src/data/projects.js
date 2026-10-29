@@ -48,7 +48,7 @@ export const projectsData = [
       'A desktop chat application built on raw TCP and UDP sockets with its own text-based protocol: private messages, group chats, and direct peer-to-peer file transfer.',
     techStack: ['Python', 'TCP/UDP Sockets', 'PyQt6', 'SQLite', 'bcrypt', 'Wireshark'],
     liveUrl: '',
-    githubUrl: '',
+    githubUrl: 'https://github.com/moonchaii/CSC3002F-Chat-Assignment',
 
     year: '2026',
     team: 'Group of 3',
@@ -109,7 +109,7 @@ export const projectsData = [
       'A two-player OXO (noughts and crosses) game written in Python, played over the network by connecting to the hosting computer’s IP address.',
     techStack: ['Python', 'Networking'],
     liveUrl: '',
-    githubUrl: '',
+    githubUrl: 'https://github.com/moonchaii/OXO_Game',
   },
 
   {
@@ -121,7 +121,7 @@ export const projectsData = [
       'A hotel management desktop application built in Visual Studio Community with C# and a MySQL database.',
     techStack: ['C#', 'MySQL', 'Visual Studio'],
     liveUrl: '',
-    githubUrl: '',
+    githubUrl: 'https://github.com/moonchaii/Phumla-Kamnandi-Group-3-5',
   },
 
   {
